@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Quiz Result</title>
+    <script>
+        function showScore() {
+            let score = localStorage.getItem("quizScore") || "0/1"; // 📝 Default Score 0/1
+            document.getElementById("score").innerText = score;
+        }
+    </script>
+</head>
+<body onload="showScore()">
+    <h1>Quiz Completed!</h1>
+    <p>Your Score: <span id="score">0/1</span></p>
+
+    <a href="index.html">
+        <button>Play Again</button>
+    </a>
+</body>
+</html>

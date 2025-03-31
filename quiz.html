@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Quiz Page</title>
+    <link rel="stylesheet" href="style.css">
+    <script>
+        let questions = [
+            { 
+                question: "What is the capital of India?", 
+                options: ["Mumbai", "Delhi", "Kolkata", "Chennai"], 
+                correct: "Delhi" 
+            },
+            { 
+                question: "Which planet is known as the Red Planet?", 
+                options: ["Earth", "Mars", "Jupiter", "Venus"], 
+                correct: "Mars"
+            }
+        ];
+
+        let currentQuestion = 0;
+        let score = 0;
+
+        function loadQuestion() {
+            let q = questions[currentQuestion];
+            document.getElementById("question-text").innerText = q.question;
+
+            let optionsHTML = "";
+            q.options.forEach(option => {
+                optionsHTML += `<input type="radio" name="answer" value="${option}"> ${option} <br>`;
+            });
+
+            document.getElementById("options").innerHTML = optionsHTML;
+        }
+
+        function nextQuestion() {
+            let selectedOption = document.querySelector('input[name="answer"]:checked');
+            if (!selectedOption) {
+                alert("Please select an answer!");
+                return;
+            }
+
+            let userAnswer = selectedOption.value;
+            if (userAnswer === questions[currentQuestion].correct) {
+                score++;
+            }
+
+            currentQuestion++;
+
+            if (currentQuestion < questions.length) {
+                loadQuestion();
+            } else {
+                localStorage.setItem("quizScore", `${score}/${questions.length}`);
+                window.location.href = "result.html";
+            }
+        }
+    </script>
+</head>
+<body onload="loadQuestion()">
+    <div class="container">
+        <h1>Quiz</h1>
+        <p id="question-text"></p>
+        <div id="options"></div>
+        <button onclick="nextQuestion()">Next</button>
+    </div>
+</body>
+</html>
